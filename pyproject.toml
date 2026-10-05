@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mavgate"
+version = "0.1.0"
+description = "A link-resilience gateway for MAVLink traffic over lossy, low-bandwidth radio links."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest", "hypothesis", "mypy", "pymavlink"]
+mavlink = ["pymavlink"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.mypy]
+strict = true
+files = ["src", "bench", "fuzz"]
+mypy_path = "src"
+
+[[tool.mypy.overrides]]
+module = ["pymavlink.*", "atheris"]
+ignore_missing_imports = true
